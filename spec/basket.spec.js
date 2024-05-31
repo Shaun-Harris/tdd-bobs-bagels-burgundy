@@ -2,7 +2,7 @@ const Basket = require("../src/basket.js")
 
 describe("Basket", () => {
     let basket
-    const largeBasket = 10 //larger test
+    const largeBasket = 10
 
     beforeEach(() => {
         basket = new Basket();
@@ -33,60 +33,46 @@ describe("Basket", () => {
     })
 
     it("Alert when basket is full", () => {
-        const expected =
-
-            "Basket full, Please choose a bigger basket."
-
         basket.addItem("bagel", 3)
         basket.addItem("brownie", 5)
-        let alert = basket.basketCapacity()
-        expect(alert).toEqual(expected)
+        const alert = basket.basketCapacity()
+        expect(alert).toEqual("Basket full, Please choose a bigger basket.")
     })
 
     it("Create basket with larger size", () => {
-        const expected = this.basketSize = largeBasket
-
-        new Basket(largeBasket)
-        let checkSize = this.basketSize
-        expect(checkSize).toEqual(expected)
+        basket = new Basket(largeBasket)
+        expect(basket.capacity).toEqual(largeBasket)
     })
 
     it("Alert when trying to remove item that doesnt exist inside basket", () => {
-        const expected = "This item is not in the basket."
-
         basket.addItem("bagel", 3)
         basket.addItem("brownie", 5)
-        let alert = basket.removeItem("Kebab", 10)
-        expect(alert).toEqual(expected)
+        const alert = basket.removeItem("Kebab")
+        expect(alert).toEqual("This item is not in the basket.")
     })
 
     it("price checker for items", () => {
         const expected = 3.99
-
-        basket.priceChecker("brownie")
-        let checkPrice = basket.priceChecker("brownie")
-        expect(checkPrice).toEqual(expected)
+        expect(basket.priceChecker("brownie")).toEqual(expected)
     })
 
-    it("favourite bagel quantity", () => {
-        const expected = [{ item: "chocolateBagel", quantity: 1, price: 4.99 },
-        { item: "chocolateBagel", quantity: 1, price: 4.99 },
-        { item: "chocolateBagel", quantity: 1, price: 4.99 }]
-
+    it("Add multiple instances of the same item", () => {
+        const expected = [
+            { item: "chocolateBagel", quantity: 1, price: 4.99 },
+            { item: "chocolateBagel", quantity: 1, price: 4.99 },
+            { item: "chocolateBagel", quantity: 1, price: 4.99 }
+        ]
         basket.addItem("chocolateBagel", 1)
         basket.addItem("chocolateBagel", 1)
         basket.addItem("chocolateBagel", 1)
-        let alert = basket.getBasket()
-        expect(alert).toEqual(expected)
+        expect(basket.getBasket()).toEqual(expected)
     })
 
     it("basket total", () => {
-        const expected = "£29.93"
-
         basket.addItem("chocolateBagel", 3)
         basket.addItem("bagel", 1)
         basket.addItem("brownie", 3)
-        let total = basket.basketTotal()
-        expect(total).toEqual(expected)
+        const expected = "£29.93"
+        expect(basket.basketTotal()).toEqual(expected)
     })
 })

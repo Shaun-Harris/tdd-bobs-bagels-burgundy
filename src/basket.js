@@ -16,43 +16,38 @@ class Basket {
         const itemPrice = fullMenu[itemName]
 
         if (itemPrice) {
-            const newItem = { item: itemName, quantity: itemQuantity, price: itemPrice } 
-                this.basket.push(newItem)
-            } else {
-                throw new Error("Item not found in menu")
-            }
+            const newItem = { item: itemName, quantity: itemQuantity, price: itemPrice }
+            this.basket.push(newItem)
+        } else {
+            throw new Error("Item not found in menu")
         }
+    }
 
     removeItem(itemName) {
         const itemIndex = this.basket.findIndex(item => item.item === itemName)
-            if (itemIndex >= 0) {
-                this.basket.splice(itemIndex, 1)
-                return this.basket
-            } else {
-                return "This item is not in the basket." 
-            }
+        if (itemIndex >= 0) {
+            this.basket.splice(itemIndex, 1)
+            return this.basket
+        } else {
+            return "This item is not in the basket."
+        }
     }
 
     basketCapacity() {
-        const totalCapacity = this.basket.reduce((total, quantity) => { return total + quantity.quantity }, 0)
-        if (totalCapacity > this.basketSize) {
+        const totalCapacity = this.basket.reduce((total, item) => total + item.quantity, 0)
+        if (totalCapacity > this.capacity) {
             return "Basket full, Please choose a bigger basket."
         }
     }
 
     priceChecker(itemName) {
         const fullMenu = MENU.GetMenu()
-        for (const items in fullMenu)
-            if (itemName === items) { return fullMenu[items] }
+        return fullMenu[itemName] || "Item not found in menu"
     }
 
     basketTotal() {
-        let eachItem = []
-        for (let i = 0; i < this.basket.length; i++) {
-            eachItem.push(this.basket[i].quantity * this.basket[i].price)
-        }
-        const totalPrice = eachItem.reduce((total, quantity) => { return total + quantity }, 0)
-        return ("£" + totalPrice)
+        const totalPrice = this.basket.reduce((total, item) => total + (item.quantity * item.price), 0)
+        return `£${totalPrice.toFixed(2)}`
     }
 }
 
