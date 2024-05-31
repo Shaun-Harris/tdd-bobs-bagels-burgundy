@@ -4,7 +4,7 @@ const smallBasket = 5
 class Basket {
     constructor(capacity = smallBasket) {
         this.basket = []
-        this.basketSize = capacity;
+        this.capacity = capacity
     }
 
     getBasket() {
@@ -13,17 +13,15 @@ class Basket {
 
     addItem(itemName, itemQuantity) {
         const fullMenu = MENU.GetMenu()
-        for (const items in fullMenu) {
-            if (items === itemName) {
-                const insideBasket = {
-                    item: itemName,
-                    quantity: itemQuantity,
-                    price: fullMenu[items]
-                }
-                this.basket.push(insideBasket)
+        const itemPrice = fullMenu[itemName]
+
+        if (itemPrice) {
+            const newItem = { item: itemName, quantity: itemQuantity, price: itemPrice } 
+                this.basket.push(newItem)
+            } else {
+                throw new Error("Item not found in menu")
             }
         }
-    }
 
     removeItem(itemName) {
         for (let i = 0; i < this.basket.length; i++)

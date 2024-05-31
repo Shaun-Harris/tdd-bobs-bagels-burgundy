@@ -2,16 +2,15 @@ const Basket = require("../src/basket.js")
 
 describe("Basket", () => {
     let basket
-    const smallBasket = 5;
+    const largeBasket = 10 //larger test
 
     beforeEach(() => {
         basket = new Basket();
     });
 
-    it("Get all basket", () => {
+    it("Should get the basket", () => {
         const expected = []
-        let getBasket = basket.getBasket()
-        expect(getBasket).toEqual(expected)
+        expect(basket.getBasket()).toEqual(expected)
     })
 
     it("Add items to basket", () => {
@@ -21,8 +20,7 @@ describe("Basket", () => {
 
         basket.addItem("bagel", 1)
         basket.addItem("brownie", 3)
-        let bagelInBasket = basket.getBasket()
-        expect(bagelInBasket).toEqual(expected)
+        expect(basket.getBasket()).toEqual(expected)
     })
 
     it("Remove bagel from basket", () => {
