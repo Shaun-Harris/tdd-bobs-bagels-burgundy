@@ -24,13 +24,12 @@ describe("Basket", () => {
     })
 
     it("Remove bagel from basket", () => {
-        const expected = this.basket = [
-            { item: "brownie", quantity: 3, price: 3.99 }]
+        const expected = this.basket = [{ item: "brownie", quantity: 3, price: 3.99 }]
 
         basket.addItem("bagel", 1)
         basket.addItem("brownie", 3)
-        let removeItem = basket.removeItem("bagel")
-        expect(removeItem).toEqual(expected)
+        basket.removeItem("bagel")
+        expect(basket.getBasket()).toEqual(expected)
     })
 
     it("Alert when basket is full", () => {

@@ -24,13 +24,13 @@ class Basket {
         }
 
     removeItem(itemName) {
-        for (let i = 0; i < this.basket.length; i++)
-            if (this.basket[i].item === itemName) {
-                this.basket.splice(i, 1)
+        const itemIndex = this.basket.findIndex(item => item.item === itemName)
+            if (itemIndex >= 0) {
+                this.basket.splice(itemIndex, 1)
                 return this.basket
+            } else {
+                return "This item is not in the basket." 
             }
-            else if (this.basket[i].item !== itemName)
-                return "This item is not in the basket."
     }
 
     basketCapacity() {
